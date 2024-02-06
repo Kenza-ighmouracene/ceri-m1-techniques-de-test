@@ -1,0 +1,15 @@
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: circleci/openjdk:8-jdk  # Utilisation d'une image Docker avec Java 8
+    working_directory: ~/fr.univavignon.pokedex.api  # Remplacez par le répertoire de votre projet
+    branches:
+      only:
+        - master
+    steps:
+      - checkout  # Récupère le code source
+      - run:
+          name: Run Unit Tests with Maven
+          command: mvn test  # Exécutez les tests unitaires avec Maven
