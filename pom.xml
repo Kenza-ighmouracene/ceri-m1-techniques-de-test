@@ -4,9 +4,12 @@
 
     <!-- Informations sur le projet -->
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.example</groupId>
-    <artifactId>mon-projet</artifactId>
+    <groupId>fr.univavignon.pokedex.api</groupId>
+    <artifactId>java-project</artifactId>
     <version>1.0.0</version>
+    <properties>
+
+    </properties>
     <name>Mon Projet</name>
     <description>Une description de mon projet</description>
 
@@ -37,16 +40,12 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.0.0</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+               <configuration>
+                   <source>1.8</source>
+                   <target>1.8</target>
+               </configuration>
             </plugin>
         </plugins>
     </build>
