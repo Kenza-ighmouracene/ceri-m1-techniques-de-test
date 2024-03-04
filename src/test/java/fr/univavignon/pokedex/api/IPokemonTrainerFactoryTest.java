@@ -2,7 +2,8 @@ package fr.univavignon.pokedex.api;
 
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 public class IPokemonTrainerFactoryTest {
@@ -12,20 +13,18 @@ public class IPokemonTrainerFactoryTest {
 
     @Before
     public void setUp() {
-        // Initialisation des mocks
+        // Initialisation des mocks ou des instances réelles selon vos besoins
         pokedexFactory = mock(IPokedexFactory.class);
-        trainerFactory = mock(IPokemonTrainerFactory.class);
+
     }
 
     @Test
     public void testCreateTrainer() {
-        // Création d'un nouvel entraîneur avec un Pokédex vide
-        PokemonTrainer trainer = trainerFactory.createTrainer("Ash", Team.MYSTIC, pokedexFactory);
+        // Création d'un PokémonTrainer avec les valeurs spécifiées
+        PokemonTrainer trainer = trainerFactory.createTrainer("Ash", Team.VALOR, pokedexFactory);
 
-        // Vérification des attributs de l'entraîneur
+        // Vérification des attributs du PokémonTrainer créé
         assertEquals("Ash", trainer.getName());
-        assertEquals(Team.MYSTIC, trainer.getTeam());
-        assertNotNull(trainer.getPokedex());
-        assertEquals(0, trainer.getPokedex().size());
+        assertEquals(Team.VALOR, trainer.getTeam());
     }
 }

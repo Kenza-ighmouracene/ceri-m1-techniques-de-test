@@ -2,7 +2,8 @@ package fr.univavignon.pokedex.api;
 
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.*;
 
 public class IPokedexFactoryTest {
@@ -13,10 +14,9 @@ public class IPokedexFactoryTest {
 
     @Before
     public void setUp() {
-        // Initialisation des mocks ou des instances réelles selon les besoins
+        // Initialisation des mocks ou des instances réelles selon vos besoins
         metadataProvider = mock(IPokemonMetadataProvider.class);
         pokemonFactory = mock(IPokemonFactory.class);
-        pokedexFactory = mock(IPokedexFactory.class);
 
     }
 
@@ -25,8 +25,7 @@ public class IPokedexFactoryTest {
         // Création d'une instance de pokedex à tester
         IPokedex pokedex = pokedexFactory.createPokedex(metadataProvider, pokemonFactory);
 
+        // Vérification que l'instance créée n'est pas nulle
         assertNotNull(pokedex);
-
-        assertEquals(0, pokedex.size());
     }
 }

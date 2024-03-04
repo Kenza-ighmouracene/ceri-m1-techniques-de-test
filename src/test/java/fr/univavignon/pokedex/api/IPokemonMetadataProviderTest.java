@@ -11,21 +11,34 @@ public class IPokemonMetadataProviderTest {
 
     @Before
     public void setUp() {
-        // Initialisation du mock ou de l'instance réelle selon les besoins
         metadataProvider = mock(IPokemonMetadataProvider.class);
-
     }
 
     @Test
     public void testGetPokemonMetadata() throws PokedexException {
-        // Définition du comportement attendu du mock
-        PokemonMetadata expectedMetadata = new PokemonMetadata(1, "Bulbasaur", 118, 118, 90);
-        when(metadataProvider.getPokemonMetadata(1)).thenReturn(expectedMetadata);
+        // Création des métadonnées pour l'index 0
+        PokemonMetadata expectedMetadata = new PokemonMetadata(0, "Bulbasaur", 118, 118, 90);
+
+        // Définir le comportement du mock pour retourner les métadonnées créées
+        when(metadataProvider.getPokemonMetadata(0)).thenReturn(expectedMetadata);
 
         // Appel de la méthode à tester
-        PokemonMetadata actualMetadata = metadataProvider.getPokemonMetadata(1);
+        PokemonMetadata actualMetadata = metadataProvider.getPokemonMetadata(0);
 
-        // Assertion
-        assertEquals(expectedMetadata, actualMetadata);
+        // Vérifier si les métadonnées retournées sont les mêmes que celles créées
+        assertEquals(expectedMetadata.getIndex(), actualMetadata.getIndex());
+        assertEquals(expectedMetadata.getName(), actualMetadata.getName());
+        assertEquals(expectedMetadata.getAttack(), actualMetadata.getAttack());
+        assertEquals(expectedMetadata.getDefense(), actualMetadata.getDefense());
+        assertEquals(expectedMetadata.getStamina(), actualMetadata.getStamina());
+    }
+
+    @Test(expected = PokedexException.class)
+    public void testGetPokemonMetadata_InvalidIndex() throws PokedexException {
+        // Définir le comportement du mock pour lancer une exception quand un index invalide est passé
+        when(metadataProvider.getPokemonMetadata(151)).thenThrow(new PokedexException("Invalid index"));
+
+        // Appel de la méthode avec un index invalide
+        metadataProvider.getPokemonMetadata(151);
     }
 }
