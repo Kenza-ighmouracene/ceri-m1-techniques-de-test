@@ -16,6 +16,7 @@ public class IPokedexFactoryTest {
         // Initialisation des mocks ou des instances réelles selon les besoins
         metadataProvider = mock(IPokemonMetadataProvider.class);
         pokemonFactory = mock(IPokemonFactory.class);
+        pokedexFactory = mock(IPokedexFactory.class);
 
     }
 

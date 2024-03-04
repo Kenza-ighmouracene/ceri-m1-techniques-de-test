@@ -3,6 +3,8 @@ package fr.univavignon.pokedex.api;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+
 import java.util.Comparator;
 import java.util.List;
 
@@ -12,7 +14,7 @@ public class IPokedexTest {
 
     @Before
     public void setUp() {
-
+        pokedex = mock(IPokedex.class);
     }
 
     @Test

@@ -13,6 +13,7 @@ public class IPokemonMetadataProviderTest {
     public void setUp() {
         // Initialisation du mock ou de l'instance réelle selon les besoins
         metadataProvider = mock(IPokemonMetadataProvider.class);
+
     }
 
     @Test

@@ -12,9 +12,9 @@ public class IPokemonTrainerFactoryTest {
 
     @Before
     public void setUp() {
-        // Initialisation des mocks ou des instances réelles selon les besoins
+        // Initialisation des mocks
         pokedexFactory = mock(IPokedexFactory.class);
-
+        trainerFactory = mock(IPokemonTrainerFactory.class);
     }
 
     @Test
