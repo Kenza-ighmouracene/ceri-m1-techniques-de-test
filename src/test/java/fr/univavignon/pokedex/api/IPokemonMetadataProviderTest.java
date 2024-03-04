@@ -17,7 +17,7 @@ public class IPokemonMetadataProviderTest {
     @Test
     public void testGetPokemonMetadata() throws PokedexException {
         // Création des métadonnées pour l'index 0
-        PokemonMetadata expectedMetadata = new PokemonMetadata(0, "Bulbasaur", 118, 118, 90);
+        PokemonMetadata expectedMetadata = new PokemonMetadata(0, "Bulbizarre", 118, 118, 90);
 
         // Définir le comportement du mock pour retourner les métadonnées créées
         when(metadataProvider.getPokemonMetadata(0)).thenReturn(expectedMetadata);
