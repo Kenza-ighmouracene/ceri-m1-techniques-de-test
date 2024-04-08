@@ -1,22 +1,16 @@
 version: 2.1
-
 jobs:
   build:
     docker:
-      - image: circleci/openjdk:8-jdk
-    working_directory: ~/fr.univavignon.pokedex.api
+      - image: circleci/openjdk:11.0.4-jdk
     steps:
       - checkout
+      - run: mvn clean verify
       - run:
-          name: Run Unit Tests with Maven
-          command: mvn test
-
+          name: Upload coverage to Codecov
+          command: bash <(curl -s https://codecov.io/bash)
 workflows:
   version: 2
   build:
     jobs:
-      - build:
-          filters:
-            branches:
-              only:
-                - master
+      - build

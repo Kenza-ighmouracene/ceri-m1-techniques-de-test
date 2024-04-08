@@ -1,40 +1,47 @@
 package fr.univavignon.pokedex.api;
-import org.junit.Before;
-import org.junit.Test;
+
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 
-public class IPokemonFactoryTest {
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mockito;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 
-    private IPokemonFactory pokemonFactory;
+public class IPokemonFactoryTest {
+    protected static final Pokemon Pokemon = null;
+
+    IPokemonFactory pokemonFactory = Mockito.mock(IPokemonFactory.class);
 
     @Before
-    public void setUp() {
-        pokemonFactory = mock(IPokemonFactory.class);
+    public void init() {
+        when(pokemonFactory.createPokemon(anyInt(), anyInt(), anyInt(), anyInt(), anyInt())).thenAnswer(new Answer<Pokemon>() {
+            public Pokemon answer(InvocationOnMock invocation) {
+                Object[] args = invocation.getArguments();
+                int cp = (int) args[0];
+                int hp = (int) args[1];
+                int dust = (int) args[2];
+                int candy = (int) args[3];
+                return new Pokemon(133, "Aquali", 126, 126, 90, cp, hp, dust, candy, 0.56);
+            }
+        });
+
     }
 
     @Test
-    public void testCreatePokemon() {
-        // Définition des métadonnées pour les deux exemples
-        PokemonMetadata metadata1 = new PokemonMetadata(0, "Bulbizarre", 126, 126, 90);
-        PokemonMetadata metadata2 = new PokemonMetadata(133, "Aquali", 186, 168, 260);
+    public void creationPokemonTest() {
+        Pokemon pokemon = pokemonFactory.createPokemon(2729, 202, 5000, 4, 133);
 
-        // Création des Pokémons avec les métadonnées spécifiées
-        Pokemon pokemon1 = new Pokemon(0, "Bulbizarre", 613, 64, 4000, 4,5,22,2,22);
-        Pokemon pokemon2 = new Pokemon(133, "Aquali", 2729, 202, 5000, 4,3,4,2,1);
-
-        // Définir le comportement attendu de la méthode createPokemon sur le mock
-        when(pokemonFactory.createPokemon(0, "Bulbizarre", 613, 64, 4000, 4)).thenReturn(pokemon1);
-        when(pokemonFactory.createPokemon(133, "Aquali", 2729, 202, 5000, 4)).thenReturn(pokemon2);
-
-        // Appeler la méthode createPokemon sur le mock avec les paramètres correspondants
-        Pokemon actualPokemon1 = pokemonFactory.createPokemon(0, "Bulbizarre", 613, 64, 4000, 4);
-        Pokemon actualPokemon2 = pokemonFactory.createPokemon(133, "Aquali", 2729, 202, 5000, 4);
-
-        // Vérifier que les Pokémon retournés par la méthode sont ceux attendus
-        assertEquals(pokemon1, actualPokemon1);
-        assertEquals(pokemon2, actualPokemon2);
+        assertEquals(133, pokemon.getIndex());
+        assertEquals("Aquali", pokemon.getName());
+        assertEquals(126, pokemon.getAttack());
+        assertEquals(2729, pokemon.getCp());
+        assertEquals(202, pokemon.getHp());
+        assertEquals(5000, pokemon.getDust());
+        assertEquals(4, pokemon.getCandy());
     }
+
 }

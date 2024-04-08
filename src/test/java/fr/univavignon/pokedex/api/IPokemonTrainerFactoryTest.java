@@ -1,30 +1,58 @@
 package fr.univavignon.pokedex.api;
 
-import org.junit.Before;
-import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 
 public class IPokemonTrainerFactoryTest {
 
-    private IPokemonTrainerFactory trainerFactory;
-    private IPokedexFactory pokedexFactory;
+
+
+    IPokemonTrainerFactory pokemonTrainerFactory = mock(IPokemonTrainerFactory.class);
+    IPokedexFactory pokedexFactory = mock(IPokedexFactory.class);
+    IPokedex pokedex = mock(IPokedex.class);
+    Pokemon pokemon1 =new Pokemon(133, "Aquali", 186, 168, 260, 0, 0, 0, 0, 0);
 
     @Before
-    public void setUp() {
-        // Initialisation des mocks ou des instances réelles selon vos besoins
-        pokedexFactory = mock(IPokedexFactory.class);
+    public void init() {
 
+        when(pokemonTrainerFactory.createTrainer(
+                anyString(), any(), any()
+        )).thenAnswer(new Answer<PokemonTrainer>() {
+            public PokemonTrainer answer(InvocationOnMock invocation) {
+                Object[] args = invocation.getArguments();
+                String name = (String) args[0];
+                Team team = (Team) args[1];
+                when(pokedex.size()).thenReturn(0);
+                return new PokemonTrainer(name, team, pokedex);
+            }
+        });
     }
 
-    @Test
-    public void testCreateTrainer() {
-        // Création d'un PokémonTrainer avec les valeurs spécifiées
-        PokemonTrainer trainer = trainerFactory.createTrainer("Ash", Team.VALOR, pokedexFactory);
 
-        // Vérification des attributs du PokémonTrainer créé
-        assertEquals("Ash", trainer.getName());
-        assertEquals(Team.VALOR, trainer.getTeam());
+    @Test
+    public void creationPokemonTrainerTest() throws PokedexException {
+
+        PokemonTrainer pokemonTrainer = pokemonTrainerFactory.createTrainer("kenzA", Team.VALOR, pokedexFactory);
+        pokemonTrainer.getPokedex().addPokemon(pokemon1);
+        assertEquals("kenzA", pokemonTrainer.getName());
+        assertEquals(Team.VALOR, pokemonTrainer.getTeam());
+        assertNotNull(pokemonTrainer.getPokedex());
+        assertEquals(0, pokemonTrainer.getPokedex().size());
+
+
+
+
+
+
     }
 }
