@@ -1,30 +1,32 @@
 package fr.univavignon.pokedex.api;
-
-
-
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.when;
 
 import org.junit.Test;
 import org.mockito.Mockito;
 
-
 public class IPokemonMetadataProviderTest {
+
     @Test
-    public void AffichageTest() throws PokedexException {
-        IPokemonMetadataProvider pokemonMetadataProvider = Mockito.mock(IPokemonMetadataProvider.class);
+    public void testGetPokemonMetadataProvider() throws PokedexException{
+        IPokemonMetadataProvider PokemonMetadataProvidemocker = Mockito.mock(IPokemonMetadataProvider.class);
 
+        String name="ATest";
+        int attack = 02;
+        int defense = 03;
+        int stamina=04;
 
-        String name="Aquali";
-        int attack=186;
-        int defense = 168;
-        int stamina = 260;
+        when(PokemonMetadataProvidemocker.getPokemonMetadata(01)).thenReturn(new PokemonMetadata(01, "ATest", 02, 03, 04));
 
-        PokemonMetadata pokemonMetadata = new PokemonMetadata(133, "Aquali", 186, 168, 260);
-        pokemonMetadataProvider.getPokemonMetadata(133);
+        PokemonMetadata pokemonMetadata = new PokemonMetadata(01, "ATest", 02, 03, 04);
+
+        PokemonMetadataProvidemocker.getPokemonMetadata(01);
         assertEquals(name, pokemonMetadata.getName());
-        assertEquals(attack,pokemonMetadata.getAttack());
+        assertEquals(attack, pokemonMetadata.getAttack());
         assertEquals(defense, pokemonMetadata.getDefense());
         assertEquals(stamina, pokemonMetadata.getStamina());
+
     }
+
 
 }
