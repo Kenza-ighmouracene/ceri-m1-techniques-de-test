@@ -9,3 +9,5 @@ Groupe : ilsen classique.
 
 **CircleCI**
 
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/Kenza-ighmouracene/ceri-m1-techniques-de-test/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/Kenza-ighmouracene/ceri-m1-techniques-de-test/tree/master)
+
